@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Table, Badge, Row, Col, Button } from 'antd';
 import { DeleteOutlined, EditOutlined, CheckOutlined } from '@ant-design/icons';
 
@@ -15,7 +15,34 @@ interface dataSourceArray {
     status: number;
 }
 
-
+const dataList1 = [{
+    index: 965,
+    productName: '实打实大苏打',
+    historyPrice: 232,
+    nowPrice: 22,
+    country: '中国',
+    joinTime: '2020-01-02',
+    auditStatus: 0,
+    status: 0,
+}, {
+    index: 23,
+    productName: '实打实大苏打1',
+    historyPrice: 232,
+    nowPrice: 22,
+    country: '中国',
+    joinTime: '2020-01-02',
+    auditStatus: 1,
+    status: 0,
+}, {
+    index: 231,
+    productName: '实打实大苏打1',
+    historyPrice: 232,
+    nowPrice: 22,
+    country: '中国',
+    joinTime: '2020-01-02',
+    auditStatus: 2,
+    status: 1,
+}];
 
 const ComContentTable: React.FC = () => {
     const [columns] = useState<any>([
@@ -59,7 +86,7 @@ const ComContentTable: React.FC = () => {
             align: 'center',
             dataIndex: 'auditStatus',
             render: (value: number) => {
-                console.log(value);
+
                 let str = '';
                 switch (value) {
                     case 0:
@@ -109,16 +136,13 @@ const ComContentTable: React.FC = () => {
             align: 'center',
             dataIndex: 'edit',
             render: (text: any, record: dataSourceArray, index: any) => {
-                console.log(text);
-                console.log(record);
-                console.log(index);
                 return (
 
                     <Row gutter={8} justify="space-around">
                         {record.status === 0 ? <Col className={styles.btn}><Button onClick={() => handleToggle(record)} className={styles.btn_1} block type="primary" size='small'><span style={{ fontSize: '12px' }}>禁用</span></Button></Col> :
                             <Col className={styles.btn}><Button onClick={() => handleToggle(record)} className={styles.btn_2} block type="primary" size='small'  > <CheckOutlined /></Button></Col>}
                         <Col className={styles.btn}><Button className={styles.btn_3} block type="primary" size='small'   ><EditOutlined /></Button></Col>
-                        <Col className={styles.btn}><Button onClick={() => handleDelete(index)} className={styles.btn_4} block type="primary" size='small'   ><DeleteOutlined /></Button></Col>
+                        <Col className={styles.btn}><Button onClick={() => handleDelete(record)} className={styles.btn_4} block type="primary" size='small'   ><DeleteOutlined /></Button></Col>
                     </Row>
 
                 )
@@ -126,36 +150,11 @@ const ComContentTable: React.FC = () => {
             }
         },
     ]);
-    const [dataSource, setDataSource] = useState<dataSourceArray[]>([{
-        index: 965,
-        productName: '实打实大苏打',
-        historyPrice: 232,
-        nowPrice: 22,
-        country: '中国',
-        joinTime: '2020-01-02',
-        auditStatus: 0,
-        status: 0,
-    }, {
-        index: 23,
-        productName: '实打实大苏打1',
-        historyPrice: 232,
-        nowPrice: 22,
-        country: '中国',
-        joinTime: '2020-01-02',
-        auditStatus: 1,
-        status: 0,
-    }, {
-        index: 231,
-        productName: '实打实大苏打1',
-        historyPrice: 232,
-        nowPrice: 22,
-        country: '中国',
-        joinTime: '2020-01-02',
-        auditStatus: 2,
-        status: 1,
-    }])
+    const [dataSource, setDataSource] = useState<dataSourceArray[]>([])
 
     const [selectedRowKeys, setSelectedRowKeys] = useState<number[]>([])
+
+
     const onSelectChange = (selectedRowKey: any) => {
         console.log('selectedRowKeys changed: ', selectedRowKey);
         setSelectedRowKeys(selectedRowKey);
@@ -164,9 +163,21 @@ const ComContentTable: React.FC = () => {
         selectedRowKeys,
         onChange: onSelectChange,
     };
+    useEffect(() => {
+        console.log(11111111)
+        setDataSource(dataList1)
+    }, [])
+    useEffect(() => {
+        let dataSourceStr = JSON.stringify(dataSource)
+        localStorage.setItem('dataSourceKey', dataSourceStr)
+    }, [dataSource])
+
     const handleToggle = (record: dataSourceArray) => {
 
-        let newArr = dataSource.map((item) => {
+        let dataSourceStr = localStorage.getItem('dataSourceKey') || '';
+        let dataSource = JSON.parse(dataSourceStr) || [];
+        console.log(1234, dataSource)
+        let newArr = dataSource.map((item: any) => {
             if (item.index === record.index) {
                 item.status = item.status === 0 ? 1 : 0;
             }
@@ -176,9 +187,14 @@ const ComContentTable: React.FC = () => {
         })
         setDataSource(newArr)
     }
-    const handleDelete = (index: any) => {
-        let newArr = dataSource.splice(0, 1)
-        setDataSource(newArr)
+    const handleDelete = (record: dataSourceArray) => {
+        let dataSourceStr = localStorage.getItem('dataSourceKey') || '';
+        let dataSource = JSON.parse(dataSourceStr) || [];
+        let newArr = dataSource.filter((item: any) => record.index !== item.index)
+        // console.log(78, newArr);
+
+        setDataSource([...newArr])
+
     }
 
     return (
