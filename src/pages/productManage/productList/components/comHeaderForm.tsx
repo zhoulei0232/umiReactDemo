@@ -3,6 +3,8 @@ import dayjs from 'dayjs';
 import {
     Form, DatePicker, Input, Button
 } from 'antd';
+import styles from './style/comHeaderForm.less';
+
 const { RangePicker } = DatePicker;
 
 const config = {
@@ -16,6 +18,7 @@ interface ComHeaderFormProps {
 const ComHeaderForm = (props: ComHeaderFormProps) => {
     const { onFinish } = props;
     return (
+
         <Form name="time_related_controls" layout='inline' onFinish={onFinish}>
             <Form.Item name="product-name" label="产品名称"  >
                 <Input placeholder="Basic usage" />
@@ -29,6 +32,8 @@ const ComHeaderForm = (props: ComHeaderFormProps) => {
             </Button>
 
         </Form >
+
+
     )
 }
 

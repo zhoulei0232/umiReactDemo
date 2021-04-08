@@ -200,6 +200,8 @@ const ComContentTable: React.FC = () => {
     return (
         <div>
             <Table
+
+                className={styles.content}
                 rowKey={(record) => `comTable${record.index}`}
                 bordered={true}
                 rowSelection={rowSelection}

@@ -10,9 +10,12 @@ import {
     Checkbox,
     Button,
     AutoComplete,
+    Card
 } from 'antd';
+import styles from './index.less';
 import ComHeaderForm from './components/comHeaderForm';
 import ComContentTable from './components/comContentTable';
+import ComLeftTree from './components/comLeftTree'
 
 const ProductList: React.FC = () => {
     const onFinish = (fieldsValue: any) => {
@@ -27,17 +30,25 @@ const ProductList: React.FC = () => {
     };
     return (
         <div>
-            <Row>
+            <Row className={styles.content}>
                 <ComHeaderForm
                     onFinish={onFinish}
                 ></ComHeaderForm>
             </Row>
-            <Row>
-                <Button>添加商品</Button>
-                <Button>批量删除</Button>
+            <Row className={styles.content} >
+                <Col span={24}>
+                    <Card  >
+                        <Button className={styles.btn1}>添加商品</Button>
+                        <Button className={styles.btn2}>批量删除</Button>
+                    </Card>
+                </Col>
             </Row>
-            <Row>
-                <Col span={4}>1</Col>
+            <Row gutter={[16, 16]}>
+                <Col span={4}>
+                    <ComLeftTree>
+
+                    </ComLeftTree>
+                </Col>
                 <Col span={20}>
                     <ComContentTable>
 
