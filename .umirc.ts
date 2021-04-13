@@ -15,22 +15,6 @@ export default defineConfig({
     antd: true,
     baseNavigator: true,
   },
-  // routes: [
-  //   {
-  //     path: '/',
-  //     component: '../layouts/index',
-  //     routes: [
-  //       {
-  //         path: '/productManage/addNewProduct',
-  //         component: './productManage/addNewProduct',
-  //       },
-  //       {
-  //         path: '/productManage/productList',
-  //         component: './productManage/productList',
-  //       }
-  //     ],
-  //   },
-  // ],
   // 是否启用按需加载
   // dynamicImport: {},
   // 设置 node_modules 目录下依赖文件的编译方式

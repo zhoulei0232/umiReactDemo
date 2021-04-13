@@ -19,9 +19,7 @@ const MenuContent: FC<BasicLayoutProps> = ({ global }) => {
     const rows = Array.isArray(data) ? data : [];
     return rows.map(row => {
       if (row === undefined) return false;
-      const { title, link = '', key, children, isHidden, ...restState } = row;
-
-      if (isHidden) return false;
+      const { title, link = '', key, children, ...restState } = row;
       if (children && children.length > 0) {
         const subMenu = renderMenu(children);
         return (
@@ -31,15 +29,12 @@ const MenuContent: FC<BasicLayoutProps> = ({ global }) => {
         );
       }
       return (
-
         <Item key={key} title={title}>
           <Link to={{ pathname: link, state: { ...restState, key } }}>
             {/* <Icon type={icon} /> */}
             <span>{title}</span>
           </Link>
         </Item>
-
-
       );
     });
   }
