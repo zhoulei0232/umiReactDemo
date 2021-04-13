@@ -16,7 +16,10 @@ export default (props: any) => {
         <Sider width={200} style={{ background: '#fff' }}>
           <MenuContent />
         </Sider>
-        <Content className={styles.content}>{props.children}</Content>
+        <Content className={styles.content}>
+          {props.children}
+        </Content>
+
       </Layout>
       {/* <Footer className={styles.footerContent}>管理平台通用业务模版</Footer> */}
     </Layout>
