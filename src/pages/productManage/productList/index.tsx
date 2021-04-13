@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { history } from 'umi';
 import dayjs from 'dayjs';
 import {
     Form,
@@ -16,6 +17,7 @@ import styles from './index.less';
 import ComHeaderForm from './components/comHeaderForm';
 import ComContentTable from './components/comContentTable';
 import ComLeftTree from './components/comLeftTree'
+import { PlusOutlined, DeleteOutlined } from '@ant-design/icons';
 
 const ProductList: React.FC = () => {
     const onFinish = (fieldsValue: any) => {
@@ -38,8 +40,8 @@ const ProductList: React.FC = () => {
             <Row className={styles.content} >
                 <Col span={24}>
                     <Card  >
-                        <Button className={styles.btn1}>添加商品</Button>
-                        <Button className={styles.btn2}>批量删除</Button>
+                        <Button icon={<PlusOutlined />} className={styles.btn1} onClick={() => { history.push('/productManage/addNewProduct'); }}>添加商品</Button>
+                        <Button icon={<DeleteOutlined />} className={styles.btn2}>批量删除</Button>
                     </Card>
                 </Col>
             </Row>

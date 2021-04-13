@@ -18,6 +18,14 @@ export default [
         key: 'productList',
         icon: '',
         children: [],
+      },
+      {
+        title: '添加商品',
+        link: '/productManage/addNewProduct',
+        key: 'addNewProduct',
+        icon: '',
+        isHidden: true,
+        children: [],
       }
     ],
   },
